@@ -1,4 +1,6 @@
-#include <iostream>
+#include <vector>
+
+using namespace std;
 
 struct ListNode {
     int val;
@@ -22,17 +24,20 @@ struct ListNode {
 
 class Solution {
 public:
-    ListNode* reverseList(ListNode* head)
+    ListNode* removeElements(ListNode* head, int val)
     {
         ListNode* head_node = new ListNode;
-        while (head != nullptr) {
-            ListNode* p = head;
-            head = head->next;
-            p->next = head_node->next;
-            head_node->next = p;
+        head_node->next = head;
+        ListNode* p = head_node;
+        while (p->next != nullptr) {
+            if (p->next->val == val) {
+                p->next = p->next->next;
+            } else {
+                p = p->next;
+            }
         }
-        head = head_node->next;
+        p = head_node->next;
         delete head_node;
-        return head;
+        return p;
     }
 };

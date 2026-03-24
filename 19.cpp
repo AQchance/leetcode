@@ -1,4 +1,3 @@
-#include <iostream>
 
 struct ListNode {
     int val;
@@ -22,15 +21,19 @@ struct ListNode {
 
 class Solution {
 public:
-    ListNode* reverseList(ListNode* head)
+    ListNode* removeNthFromEnd(ListNode* head, int n)
     {
         ListNode* head_node = new ListNode;
-        while (head != nullptr) {
-            ListNode* p = head;
-            head = head->next;
-            p->next = head_node->next;
-            head_node->next = p;
+        head_node->next = head;
+        ListNode *p = head_node, *q = head_node;
+        for (int i = 0; i < n; i++) {
+            q = q->next;
         }
+        while (q->next != nullptr) {
+            p = p->next;
+            q = q->next;
+        }
+        p->next = p->next->next;
         head = head_node->next;
         delete head_node;
         return head;
